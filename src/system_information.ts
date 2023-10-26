@@ -14,7 +14,7 @@ export interface ServerSysInfo {
 
 export async function getSystemInformation() {
   const sysinfo = await getAllData();
-  const ServerSysInfo: ServerSysInfo = {
+  const server_sysinfo: ServerSysInfo = {
     cpu: sysinfo.cpu,
     system: sysinfo.system,
     mem: sysinfo.mem,
@@ -24,5 +24,5 @@ export async function getSystemInformation() {
     diskLayout: sysinfo.diskLayout,
     networkInterfaces: sysinfo.net
   };
-  return ServerSysInfo;
+  return server_sysinfo;
 }
