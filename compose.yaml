@@ -11,6 +11,7 @@ services:
   server:
     build:
       context: .
+      dockerfile: ./.docker/multistage.Dockerfile
     environment:
       NODE_ENV: production
     ports:
