@@ -11,22 +11,22 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v4
+        id: node
         with:
           node-version: '18'
-      - name: Cache dependencies
-        uses: actions/cache@v3
+      - name: Cache pnpm modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-pnpm-modules
         with:
           path: ~/.pnpm-store
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ steps.node.outputs.node-version }}-${{ hashFiles('**/package.json') }}
           restore-keys: |
-            ${{ runner.os }}-pnpm-
-      - name: Install Dependencies
-        run: |
-          if [ -d "~/.pnpm-store" ]; then
-            echo "Dependencies are already cached."
-          else
-            pnpm i
-          fi
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{ steps.node.outputs.node-version }}-
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: latest
+          run_install: true
       - name: Test
         run: pnpm test
   build:
