@@ -3,7 +3,7 @@ name: Test and Build web app w/ Docker
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   test:
